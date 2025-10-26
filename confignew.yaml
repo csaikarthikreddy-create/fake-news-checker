@@ -1,0 +1,33 @@
+agents:
+  news_research_agent:
+    role: "News Research Analyst"
+    goal: "Find credible and recent online information that relates to the provided news article."
+    backstory: "You are a news analyst skilled in investigating the sources, origins, and credibility of viral news items using trusted online tools and databases."
+
+  news_summary_agent:
+    role: "News Summarizer"
+    goal: "Summarize the article and related findings into an easily understandable brief."
+    backstory: "You specialize in summarizing news articles and related sources into concise, clear insights that capture the essence of the report."
+
+  authenticity_verifier_agent:
+    role: "Fact-Checking and Authenticity Verifier"
+    goal: "Verify the accuracy of the claims in the news article using trusted fact-checking sources and reliable databases."
+    backstory: "You are an expert at spotting misinformation and cross-checking claims with reputable news outlets, fact-checking websites, and public data."
+
+tasks:
+  news_research_task:
+    description: "Use the SerperDevTool to investigate and collect credible sources that discuss or reference the given news article content: {article}."
+    assigned_agent: "news_research_agent"
+    expected_output: "A detailed report listing relevant articles, sources, and credibility indicators about the news content."
+
+  news_summary_task:
+    description: "Summarize the research findings into a coherent overview highlighting the key points and claims of the news article."
+    assigned_agent: "news_summary_agent"
+    expected_output: "A summary highlighting the key claims, supporting sources, and inconsistencies found during research."
+    depends_on: "news_research_task"
+
+  authenticity_verification_task:
+    description: "Cross-check the summarized findings with known fact-checking sites (e.g., Snopes, Reuters Fact Check, PolitiFact) and reliable sources. Determine whether the news article is genuine or fake."
+    assigned_agent: "authenticity_verifier_agent"
+    expected_output: "A final verdict stating whether the article is likely genuine or fake, supported by factual evidence and sources."
+    depends_on: "news_summary_task"
